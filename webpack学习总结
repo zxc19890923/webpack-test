@@ -1,0 +1,63 @@
+1. 安装
+首先要安装过node
+然后全局安装webpack
+npm install webpack -g
+
+2. 定位到开发目录 安装到目录中
+创建package.js
+npm install webpack --save-dev
+
+注意文件中不能写注释
+package.js 
+{
+  "name": "webpack-test",
+  "version": "1.0.0",
+  "description": "一个简单的webpack案例",
+  "main": "bundle.js",  // 要压缩导出的js主文件
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "webpack"
+  ],
+  "author": "zhangxuchao",
+  "license": "MIT",
+  "devDependencies": {  // 安装的webpack包和里面的loader css压缩器
+    "css-loader": "^0.25.0",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.2"
+  }
+}
+3. webpack.config.js配置文件，自动监听压缩
+
+// 导入webpack包
+var webpack = require("webpack");
+module.exports = {
+    // 要压缩的文件入口
+    entry: './entry.js',
+    // 压缩完，输出的文件
+    output: {
+        path: __dirname,
+        filename: 'bundle.js'
+    },
+    // 加载css文件压缩器，因为webpack只能压缩js文件，所以需要loader扩展
+    module: {
+        loaders: [
+            // 正则匹配.css结尾的文件
+            {test: /\.css$/, loader: 'style!css'}
+        ]
+    },
+    // webpack的插件文件
+    plugins: [
+        new webpack.BannerPlugin("注释信息, 这个文件是由zxc创建的, 这是webpack插件的用法")
+    ]
+};
+
+4. 命令
+webpack --progress --colors --watch 如果允许这个命令，那么就会监听文件的变化，不用每次编译，刷新浏览器就可以看到最细效果
+
+5. 使用webpack-dev-server安装 他可以创建一个localhost:8080服务，然后监听文件变化和刷新浏览器
+sudo install webpack-dev-server -g //全局安装
+
+运行
+webpack-dev-server --progress --colors
