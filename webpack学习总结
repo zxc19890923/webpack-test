@@ -50,11 +50,32 @@ module.exports = {
     // webpack的插件文件
     plugins: [
         new webpack.BannerPlugin("注释信息, 这个文件是由zxc创建的, 这是webpack插件的用法")
-    ]
+    ],
+    resolve: {
+        //查找module的话从这里开始查找
+        root: 'E:/github/flux-example/src', //绝对路径
+        //自动扩展文件后缀名，意味着我们require模块可以省略不写后缀名
+        extensions: ['', '.js', '.json', '.scss'],
+        //模块别名定义，方便后续直接引用别名，无须多写长长的地址
+        alias: {
+            AppStore : 'js/stores/AppStores.js',//后续直接 require('AppStore') 即可
+            ActionType : 'js/actions/ActionType.js',
+            AppAction : 'js/actions/AppAction.js'
+        }
+    }
 };
 
 4. 命令
 webpack --progress --colors --watch 如果允许这个命令，那么就会监听文件的变化，不用每次编译，刷新浏览器就可以看到最细效果
+
+
+$ webpack --config XXX.js   //使用另一份配置文件（比如webpack.config2.js）来打包
+
+$ webpack --watch   //监听变动并自动打包
+
+$ webpack -p    //压缩混淆脚本，这个非常非常重要！ 压缩会变小很多
+
+$ webpack -d    //生成map映射文件，告知哪些模块被最终打包到哪里了
 
 5. 使用webpack-dev-server安装 他可以创建一个localhost:8080服务，然后监听文件变化和刷新浏览器
 sudo npm install webpack-dev-server -g //全局安装
