@@ -13,7 +13,7 @@ package.js
   "name": "webpack-test",
   "version": "1.0.0",
   "description": "一个简单的webpack案例",
-  "main": "bundle.js",  // 要压缩导出的js主文件
+  "main": "bundle.js",  // 要压缩导出的js主文件, 在html界面中加载
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -57,7 +57,7 @@ module.exports = {
 webpack --progress --colors --watch 如果允许这个命令，那么就会监听文件的变化，不用每次编译，刷新浏览器就可以看到最细效果
 
 5. 使用webpack-dev-server安装 他可以创建一个localhost:8080服务，然后监听文件变化和刷新浏览器
-sudo install webpack-dev-server -g //全局安装
+sudo npm install webpack-dev-server -g //全局安装
 
 运行
 webpack-dev-server --progress --colors
